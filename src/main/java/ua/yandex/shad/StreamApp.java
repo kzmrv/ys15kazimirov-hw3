@@ -1,6 +1,7 @@
 package ua.yandex.shad;
 
-import ua.yandex.shad.stream.*;
+import ua.yandex.shad.stream.AsIntStream;
+import ua.yandex.shad.stream.IntStream;
 
 public class StreamApp {
 
