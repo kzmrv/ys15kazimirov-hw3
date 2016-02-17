@@ -16,7 +16,7 @@ public class AsIntStream implements IntStream {
     }
 
     public boolean isEmpty() {
-        return (storage.isEmpty());
+        return storage.isEmpty();
     }
 
     private AsIntStream addBoxed(Integer... values) {
@@ -37,6 +37,12 @@ public class AsIntStream implements IntStream {
         addNative(source);
     }
 
+    private void checkEmptyWithThrow() {
+        if (isEmpty()) {
+            throw new IllegalArgumentException();
+        }
+    }
+
     public static IntStream ofBoxed(Integer... values) {
         return new AsIntStream().addBoxed(values);
     }
@@ -47,25 +53,19 @@ public class AsIntStream implements IntStream {
 
     @Override
     public Double average() {
-        if (isEmpty()) {
-            throw new IllegalArgumentException();
-        }
+        checkEmptyWithThrow();
         return (double) sum() / count();
     }
 
     @Override
     public Integer max() {
-        if (isEmpty()) {
-            throw new IllegalArgumentException();
-        }
+        checkEmptyWithThrow();
         return reduce(storage.at(0), (x, y) -> Math.max(x, y));
     }
 
     @Override
     public Integer min() {
-        if(isEmpty()) {
-            throw new IllegalArgumentException();
-        }
+        checkEmptyWithThrow();
         return reduce(storage.at(0), (x, y) -> Math.min(x, y));
     }
 
@@ -114,9 +114,7 @@ public class AsIntStream implements IntStream {
 
     @Override
     public Integer sum() {
-        if(isEmpty()) {
-            throw new IllegalArgumentException();
-        }
+        checkEmptyWithThrow();
         return this.reduce(0, (res, x) -> res += x);
     }
 

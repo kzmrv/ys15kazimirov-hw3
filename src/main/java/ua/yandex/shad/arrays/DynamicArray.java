@@ -42,7 +42,7 @@ public class DynamicArray<Typename> {
     }
 
     public boolean isEmpty() {
-        return (length == 0);
+        return length == 0;
     }
 
 }
